@@ -19,7 +19,9 @@ const elements = {
   doctorCards: document.querySelector("#doctor-cards"),
   searchForm: document.querySelector("#search-form"),
   searchQuery: document.querySelector("#search-query"),
-  searchResults: document.querySelector("#search-results")
+  searchResults: document.querySelector("#search-results"),
+  viewQueueButton: document.querySelector("#view-queue-button"),
+  patientQueueView: document.querySelector("#patient-queue-view")
 };
 
 function todayString() {
@@ -162,6 +164,28 @@ function renderQueue(queue) {
     .join("");
 }
 
+function renderPatientQueue(queue) {
+  const activeQueue = queue.filter((entry) => entry.status === "In Queue" || entry.status === "With Doctor");
+
+  if (!activeQueue.length) {
+    elements.patientQueueView.innerHTML = `<p class="empty-state">No active patients in queue right now.</p>`;
+    return;
+  }
+
+  elements.patientQueueView.innerHTML = activeQueue
+    .map(
+      (entry) => `
+        <article class="search-card">
+          <div>
+            <h3>${entry.queueNumber}</h3>
+            <p>${entry.patientName} • ${entry.status} • ${entry.estimatedWaitMinutes} min wait</p>
+          </div>
+        </article>
+      `
+    )
+    .join("");
+}
+
 function renderAppointments(appointments) {
   if (!appointments.length) {
     elements.appointmentsTable.innerHTML = `<p class="empty-state">No appointments for this date.</p>`;
@@ -182,8 +206,8 @@ function renderAppointments(appointments) {
         </thead>
         <tbody>
           ${appointments
-            .map(
-              (appointment) => `
+      .map(
+        (appointment) => `
                 <tr>
                   <td>${appointment.startTime}</td>
                   <td>${appointment.patientName}</td>
@@ -192,8 +216,8 @@ function renderAppointments(appointments) {
                   <td>${appointment.reference}</td>
                 </tr>
               `
-            )
-            .join("")}
+      )
+      .join("")}
         </tbody>
       </table>
     </div>
@@ -370,6 +394,17 @@ elements.walkInForm.addEventListener("submit", async (event) => {
 });
 
 elements.searchForm.addEventListener("submit", searchAppointments);
+
+elements.viewQueueButton.addEventListener("click", async () => {
+  elements.patientQueueView.innerHTML = `<p class="empty-state">Loading current queue...</p>`;
+
+  try {
+    await loadDashboard();
+    renderPatientQueue(state.dashboard.queue);
+  } catch (error) {
+    elements.patientQueueView.innerHTML = `<p class="empty-state">${error.message}</p>`;
+  }
+});
 
 elements.searchResults.addEventListener("click", async (event) => {
   const button = event.target.closest("[data-checkin-id]");
