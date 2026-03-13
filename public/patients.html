@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Flow — Northstar Family Clinic</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="top-nav">
+        <a href="/" class="nav-brand">Northstar Family Clinic</a>
+        <div class="nav-links">
+          <a href="/">Dashboard</a>
+          <a href="/patients.html" class="active">Patient Flow</a>
+        </div>
+      </nav>
+
+      <main class="layout">
+        <section class="panel booking-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Patient Flow</p>
+              <h2>Online Appointment Booking</h2>
+            </div>
+            <label class="inline-field">
+              <span>Date</span>
+              <input id="booking-date" type="date" />
+            </label>
+          </div>
+
+          <form id="booking-form" class="stacked-form">
+            <div class="form-grid">
+              <label>
+                <span>Full name</span>
+                <input name="fullName" type="text" maxlength="120" required />
+              </label>
+              <label>
+                <span>Phone</span>
+                <input name="phone" type="tel" maxlength="40" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" maxlength="120" />
+              </label>
+              <label class="full-span">
+                <span>Visit notes</span>
+                <textarea name="notes" rows="3" maxlength="300"></textarea>
+              </label>
+            </div>
+
+            <div class="slot-section">
+              <div class="slot-header">
+                <div>
+                  <p class="panel-kicker">Availability</p>
+                  <h3>Select a time slot</h3>
+                </div>
+                <p id="slot-summary" class="slot-summary">Pick a date to load available slots.</p>
+              </div>
+              <div id="slot-grid" class="slot-grid"></div>
+            </div>
+
+            <button class="primary-button" type="submit">Book appointment</button>
+          </form>
+          <div id="booking-feedback" class="feedback"></div>
+        </section>
+
+        <section class="side-stack">
+          <section class="panel">
+            <div class="panel-header compact">
+              <div>
+                <p class="panel-kicker">Front Desk</p>
+                <h2>Walk-In Registration</h2>
+              </div>
+            </div>
+            <form id="walkin-form" class="stacked-form">
+              <label>
+                <span>Full name</span>
+                <input name="fullName" type="text" required />
+              </label>
+              <label>
+                <span>Phone</span>
+                <input name="phone" type="tel" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" />
+              </label>
+              <label>
+                <span>Reason for visit</span>
+                <input name="reasonForVisit" type="text" required />
+              </label>
+              <label>
+                <span>Priority</span>
+                <select name="priorityLevel">
+                  <option>Normal</option>
+                  <option>Priority</option>
+                  <option>Urgent</option>
+                </select>
+              </label>
+              <button class="secondary-button" type="submit">Register walk-in</button>
+            </form>
+            <div id="walkin-feedback" class="feedback"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header compact">
+              <div>
+                <p class="panel-kicker">Arrival</p>
+                <h2>Patient Check-In</h2>
+              </div>
+            </div>
+            <form id="search-form" class="search-bar">
+              <input id="search-query" type="text" placeholder="Search by name, phone, or booking reference" />
+              <button class="secondary-button" type="submit">Search</button>
+            </form>
+            <div id="search-results" class="result-list empty-state">Same-day appointment matches appear here.</div>
+          </section>
+        </section>
+      </main>
+
+      <section class="panel" style="margin-top: 1.25rem;">
+        <div class="panel-header compact">
+          <div>
+            <p class="panel-kicker">Live Status</p>
+            <h2>Current Queue</h2>
+          </div>
+        </div>
+        <div id="patient-queue" class="queue-list empty-state">Loading queue...</div>
+      </section>
+    </div>
+
+    <script type="module" src="/patients.js"></script>
+  </body>
+</html>
