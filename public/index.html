@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Northstar Family Clinic</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Clinic Patient Intake & Appointment Management</p>
+          <h1>Northstar Family Clinic</h1>
+          <p class="hero-text">
+            Patient booking, walk-in registration, same-day check-in, and a live queue view tuned for a
+            three-doctor clinic running Monday to Saturday.
+          </p>
+          <div class="hero-meta">
+            <span>Open Mon-Sat</span>
+            <span>08:00-17:00</span>
+            <span>3 active doctors</span>
+          </div>
+        </div>
+        <div class="hero-aside">
+          <div class="status-orb"></div>
+          <p class="aside-label">Today at a glance</p>
+          <div id="metric-strip" class="metric-strip"></div>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel booking-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Patient Flow</p>
+              <h2>Online Appointment Booking</h2>
+            </div>
+            <label class="inline-field">
+              <span>Date</span>
+              <input id="booking-date" type="date" />
+            </label>
+          </div>
+
+          <form id="booking-form" class="stacked-form">
+            <div class="form-grid">
+              <label>
+                <span>Full name</span>
+                <input name="fullName" type="text" maxlength="120" required />
+              </label>
+              <label>
+                <span>Phone</span>
+                <input name="phone" type="tel" maxlength="40" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" maxlength="120" />
+              </label>
+              <label class="full-span">
+                <span>Visit notes</span>
+                <textarea name="notes" rows="3" maxlength="300"></textarea>
+              </label>
+            </div>
+
+            <div class="slot-section">
+              <div class="slot-header">
+                <div>
+                  <p class="panel-kicker">Availability</p>
+                  <h3>Select a time slot</h3>
+                </div>
+                <p id="slot-summary" class="slot-summary">Pick a date to load available slots.</p>
+              </div>
+              <div id="slot-grid" class="slot-grid"></div>
+            </div>
+
+            <button class="primary-button" type="submit">Book appointment</button>
+          </form>
+          <div id="booking-feedback" class="feedback"></div>
+        </section>
+
+        <section class="side-stack">
+          <section class="panel">
+            <div class="panel-header compact">
+              <div>
+                <p class="panel-kicker">Front Desk</p>
+                <h2>Walk-In Registration</h2>
+              </div>
+            </div>
+            <form id="walkin-form" class="stacked-form">
+              <label>
+                <span>Full name</span>
+                <input name="fullName" type="text" required />
+              </label>
+              <label>
+                <span>Phone</span>
+                <input name="phone" type="tel" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" />
+              </label>
+              <label>
+                <span>Reason for visit</span>
+                <input name="reasonForVisit" type="text" required />
+              </label>
+              <label>
+                <span>Priority</span>
+                <select name="priorityLevel">
+                  <option>Normal</option>
+                  <option>Priority</option>
+                  <option>Urgent</option>
+                </select>
+              </label>
+              <button class="secondary-button" type="submit">Register walk-in</button>
+            </form>
+            <div id="walkin-feedback" class="feedback"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header compact">
+              <div>
+                <p class="panel-kicker">Arrival</p>
+                <h2>Patient Check-In</h2>
+              </div>
+            </div>
+            <form id="search-form" class="search-bar">
+              <input id="search-query" type="text" placeholder="Search by name, phone, or booking reference" />
+              <button class="secondary-button" type="submit">Search</button>
+            </form>
+            <div id="search-results" class="result-list empty-state">Same-day appointment matches appear here.</div>
+          </section>
+        </section>
+      </main>
+
+      <section class="dashboard-grid">
+        <section class="panel">
+          <div class="panel-header compact">
+            <div>
+              <p class="panel-kicker">Operations</p>
+              <h2>Live Queue</h2>
+            </div>
+          </div>
+          <div id="queue-list" class="queue-list empty-state">No active queue entries yet.</div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header compact">
+            <div>
+              <p class="panel-kicker">Today</p>
+              <h2>Appointments</h2>
+            </div>
+          </div>
+          <div id="appointments-table" class="appointment-list empty-state">No appointments for this date.</div>
+        </section>
+      </section>
+
+      <section class="panel doctor-panel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Doctor Workflow</p>
+            <h2>Doctor Load & Queue Visibility</h2>
+          </div>
+        </div>
+        <div id="doctor-cards" class="doctor-cards"></div>
+      </section>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
